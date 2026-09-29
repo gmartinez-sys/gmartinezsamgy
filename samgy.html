@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAMGY - Gestión de Salud Escolar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMGY - Sistema de Gestión de Enfermería Escolar</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- Google Fonts: Montserrat y Open Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="contenedor">
-        <header class="header">
-            <div class="logo">
-                <p>SAM<span>GY</span></p>
-            </div>
-            <nav class="menu"> 
-                <ul class="navegacion">
-                    <li><a href="#" class="activo">Inicio</a></li>
-                    <li><a href="#">Sistema</a></li>
-                    <li><a href="#">Beneficios</a></li>
-                    <li><a href="#" class="btn-nav" onclick="cambiarColor()">Probar Sistema</a></li>
-                </ul>
-            </nav>
-        </header>
 
-        <main class="presentacion">
-            <div class="informacion">
-                <span class="tagline">✦ Innovación en Salud Escolar</span>
-                <h1>Gestión de salud escolar <span>inteligente</span></h1>
-                <p>Organiza fichas médicas, historiales y reportes de enfermería de forma rápida, eficiente y totalmente segura.</p>
-                <div class="informacion--boton">
-                    <button type="button" class="btn-principal" onclick="cambiarColor()">Probar Sistema Gratis</button>
-                </div>
-            </div>
-            
-            <div class="imagen-presentacion">
-                <div class="med-card">
-                    <p>🩺 Fichas Activas: <strong>+1,200</strong></p>
-                </div>
-            </div>
-        </main>
-    </div>
+<header id="header">
+<div class="logo-area">
+<h1>SAMGY</h1>
+<p>Sistema de Salud Escolar</p>
+</div>
+<nav>
+<a href="#" class="activo">Inicio</a>
+<a href="#sistema">Sistema</a>
+<a href="#beneficios">Beneficios</a>
+<a href="#contacto">Contacto</a>
+</nav>
+</header>
 
-    
+<main>
+<section class="hero">
+<h2>Gestión de Salud Escolar Inteligente</h2>
+<p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil.</p>
+<div class="busqueda-rapida">
+<input type="text" id="inputBusqueda" placeholder="Buscar por nombre o N° Documento...">
+<button type="button" id="btnBuscar">Buscar Estudiante</button>
+</div>
+</section>
+
+<section id="sistema" class="contenido-grid">
+<div class="tarjeta-info">
+<h3>Resumen de Control</h3>
+<p><strong>Objetivo General:</strong> Digitalizar los registros médicos para reducir el uso de papel y acelerar la atención de enfermería.</p>
+</div>
+<div class="tarjeta-info">
+<h3>Estado del Día</h3>
+<ul>
+<li>Estudiantes Atendidos: <span>0</span></li>
+<li>Fichas Médicas Actualizadas: <span>0</span></li>
+</ul>
+</div>
+</section>
+</main>
+
+<footer>
+<p>Proyecto SAMGY &copy; 2026 — Yaricel Bayter, Mathias Hernández, Gabriela Martínez, Andrea Pallares, Sajoha Vasquez</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
