@@ -1,59 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAMGY - Sistema de Gestión de Enfermería Escolar</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAMGY - Sistema de Gestión de Enfermería Escolar</title>
+  <link rel="stylesheet" href="style.css">
 
-<!-- Google Fonts: Montserrat y Open Sans -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Tipografías Oficiales: Montserrat y Open Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header id="header">
-<div class="logo-area">
-<h1>SAMGY</h1>
-<p>Sistema de Salud Escolar</p>
-</div>
-<nav>
-<a href="#" class="activo">Inicio</a>
-<a href="#sistema">Sistema</a>
-<a href="#beneficios">Beneficios</a>
-<a href="#contacto">Contacto</a>
-</nav>
-</header>
+  <header id="header">
+    <div class="logo-area">
+      <h1>SAMGY</h1>
+      <p>Sistema Web de Gestión de Datos — Colegio San Alberto Magno</p>
+    </div>
+    <nav>
+      <a href="#" class="activo">Inicio</a>
+      <a href="#integrantes">Equipo</a>
+      <a href="#sistema">Sistema</a>
+      <a href="#herramientas">Herramientas</a>
+    </nav>
+  </header>
 
-<main>
-<section class="hero">
-<h2>Gestión de Salud Escolar Inteligente</h2>
-<p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil.</p>
-<div class="busqueda-rapida">
-<input type="text" id="inputBusqueda" placeholder="Buscar por nombre o N° Documento...">
-<button type="button" id="btnBuscar">Buscar Estudiante</button>
-</div>
-</section>
+  <main>
+    <!-- Búsqueda Rápida -->
+    <section class="hero">
+      <h2>Gestión de Salud Escolar Inteligente</h2>
+      <p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil.</p>
+      <div class="busqueda-rapida">
+        <input type="text" id="inputBusqueda" placeholder="Buscar estudiante por nombre o documento...">
+        <button type="button" id="btnBuscar">Buscar Estudiante</button>
+      </div>
+      <p id="mensajeResultado" class="mensaje-busqueda"></p>
+    </section>
 
-<section id="sistema" class="contenido-grid">
-<div class="tarjeta-info">
-<h3>Resumen de Control</h3>
-<p><strong>Objetivo General:</strong> Digitalizar los registros médicos para reducir el uso de papel y acelerar la atención de enfermería.</p>
-</div>
-<div class="tarjeta-info">
-<h3>Estado del Día</h3>
-<ul>
-<li>Estudiantes Atendidos: <span>0</span></li>
-<li>Fichas Médicas Actualizadas: <span>0</span></li>
-</ul>
-</div>
-</section>
-</main>
+    <!-- Integrantes -->
+    <section id="integrantes" class="tarjeta-equipo">
+      <h3>Integrantes del Proyecto:</h3>
+      <ul>
+        <li><strong>Yaricel Paola Bayter Samera</strong> (@ybayter) — QA / Tester</li>
+        <li><strong>Mathias Jose Hernandez Bermudez</strong> (@mhernadez-rgb) — Desarrollador / Analista Lead</li>
+        <li><strong>Gabriela De los Ángeles Martinez Navarro</strong> (@gmartinez-sys) — Líder del Proyecto</li>
+        <li><strong>Andrea Carolina Pallares Medina</strong> (@apallares-mdna) — Diseñadora UX/UI</li>
+        <li><strong>Sajoha Paola Vasquez Rodriguez</strong> (@svasquez-rdg) — Documentadora / Comunicaciones</li>
+      </ul>
+    </section>
 
-<footer>
-<p>Proyecto SAMGY &copy; 2026 — Yaricel Bayter, Mathias Hernández, Gabriela Martínez, Andrea Pallares, Sajoha Vasquez</p>
-</footer>
+    <!-- Resumen y Objetivos -->
+    <section id="sistema" class="contenido-grid">
+      <div class="tarjeta-info">
+        <h3>Presentación del Proyecto</h3>
+        <p>
+          En el área de enfermería del Colegio San Alberto Magno, la gestión suele llevarse a cabo de forma manual[cite: 1]. 
+          SAMGY nace para centralizar, estructurar y optimizar la información médica y académica[cite: 1].
+        </p>
+      </div>
+
+      <div class="tarjeta-info">
+        <h3>Objetivos de SAMGY</h3>
+        <ul>
+          <li>Crear una base de datos digital estudiantil[cite: 1].</li>
+          <li>Facilitar consultas rápidas de enfermería[cite: 1].</li>
+          <li>Reducir el uso de registros en papel[cite: 1].</li>
+          <li>Generar reportes y actualizar fichas periódicamente[cite: 1].</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Herramientas -->
+    <section id="herramientas" class="tarjeta-herramientas">
+      <h3>Herramientas Tecnológicas Implementadas</h3>
+      <p>
+        • <strong>HTML5 & CSS3:</strong> Para maquetación visual basada en la identidad de marca[cite: 1].<br>
+        • <strong>JavaScript:</strong> Para la lógica de interacción y búsquedas.<br>
+        • <strong>Git & GitHub:</strong> Control de versiones y despliegue continuo.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Proyecto SAMGY &copy; 2026 — Yaricel Bayter, Mathias Hernández, Gabriela Martínez, Andrea Pallares, Sajoha Vasquez</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
 <script src="script.js"></script>
 </body>
