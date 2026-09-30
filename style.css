@@ -1,5 +1,4 @@
 
-/* Paleta Oficial SAMGY */
 :root {
   --azul-oscuro: #03658C;
   --azul-claro: #4FB3D9;
@@ -90,7 +89,6 @@ main {
   margin-top: 0;
 }
 
-/* Módulo Fichas Estudiantiles */
 .seccion-fichas {
   background-color: #f4f8fa;
   border: 2px solid var(--azul-claro);
@@ -153,7 +151,6 @@ main {
   background-color: #024965;
 }
 
-/* Formulario Grid */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -165,7 +162,6 @@ main {
   margin-top: 8px;
 }
 
-/* Tarjetas Informativas */
 .tarjeta-equipo {
   background-color: var(--gris-suave);
   border-left: 5px solid var(--azul-oscuro);
