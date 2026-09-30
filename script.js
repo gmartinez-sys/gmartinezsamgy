@@ -1,15 +1,35 @@
-
+// Estudiantes iniciales por defecto si no hay nada en el navegador
 const iniciales = [
   {
+    id: "1001234567",
     nombre: "Juan Pablo Pérez",
     documento: "1001234567",
     grado: "10°A",
     tipoSangre: "O+",
     alergias: "Penicilina",
     tutor: "Carlos Pérez (3001234567)"
+  },
+  {
+    id: "1009876543",
+    nombre: "María Camargo",
+    documento: "1009876543",
+    grado: "10°A",
+    tipoSangre: "A+",
+    alergias: "Ninguna",
+    tutor: "Ana Camargo (3109876543)"
+  },
+  {
+    id: "1005554443",
+    nombre: "Carlos Andrés Mendoza",
+    documento: "1005554443",
+    grado: "11°B",
+    tipoSangre: "B+",
+    alergias: "Polen",
+    tutor: "Luisa Mendoza (3205554443)"
   }
 ];
 
+// Obtener datos guardados en el navegador o iniciar con la lista base
 let baseDatosEstudiantes = JSON.parse(localStorage.getItem("samgy_estudiantes")) || iniciales;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,19 +38,75 @@ document.addEventListener("DOMContentLoaded", () => {
   const mensajeResultado = document.getElementById("mensajeResultado");
   const formEstudiante = document.getElementById("formEstudiante");
   const mensajeGuardado = document.getElementById("mensajeGuardado");
+  const contenedorGrados = document.getElementById("contenedorGrados");
+  const tituloFormulario = document.getElementById("tituloFormulario");
+  const btnGuardar = document.getElementById("btnGuardar");
+  const btnCancelarEdicion = document.getElementById("btnCancelarEdicion");
 
-
+  // Guardar datos en el localStorage
   const guardarEnStorage = () => {
     localStorage.setItem("samgy_estudiantes", JSON.stringify(baseDatosEstudiantes));
+    renderizarDirectorio();
   };
 
+  // ==========================================
+  // Renderizar Directorio Clasificado por Grados
+  // ==========================================
+  const renderizarDirectorio = () => {
+    contenedorGrados.innerHTML = "";
 
+    if (baseDatosEstudiantes.length === 0) {
+      contenedorGrados.innerHTML = "<p>No hay fichas registradas en el sistema actualmente.</p>";
+      return;
+    }
+
+    // Agrupar estudiantes por grado
+    const porGrados = {};
+    baseDatosEstudiantes.forEach(est => {
+      const grado = est.grado.toUpperCase();
+      if (!porGrados[grado]) porGrados[grado] = [];
+      porGrados[grado].push(est);
+    });
+
+    // Crear la estructura HTML para cada grado
+    Object.keys(porGrados).sort().forEach(grado => {
+      const bloque = document.createElement("div");
+      bloque.className = "bloque-grado";
+      
+      let tarjetasHTML = `<div class="grid-estudiantes">`;
+      porGrados[grado].forEach(est => {
+        tarjetasHTML += `
+          <div class="tarjeta-estudiante">
+            <div>
+              <p><strong>👤 ${est.nombre}</strong></p>
+              <p><strong>Doc:</strong> ${est.documento}</p>
+              <p><strong>Sangre:</strong> ${est.tipoSangre}</p>
+              <p><strong>Alergias:</strong> ${est.alergias}</p>
+              <p><strong>Tutor:</strong> ${est.tutor}</p>
+            </div>
+            <div class="acciones-tarjeta">
+              <button class="btn-editar" onclick="cargarFormularioEdicion('${est.id}')">✏️ Editar</button>
+              <button class="btn-eliminar" onclick="eliminarEstudiante('${est.id}', '${est.nombre}')">🗑️ Eliminar</button>
+            </div>
+          </div>
+        `;
+      });
+      tarjetasHTML += `</div>`;
+
+      bloque.innerHTML = `<h4>🏫 Grado: ${grado} (${porGrados[grado].length} estudiantes)</h4>${tarjetasHTML}`;
+      contenedorGrados.appendChild(bloque);
+    });
+  };
+
+  // ==========================================
+  // Búsqueda de Estudiantes
+  // ==========================================
   const realizarBusqueda = () => {
     const termino = inputBusqueda.value.trim().toLowerCase();
 
     if (termino === "") {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = " Ingresa un nombre, apellido o documento.";
+      mensajeResultado.innerHTML = "⚠️ Ingresa un nombre, apellido o documento para buscar.";
       return;
     }
 
@@ -48,11 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
           <p style="margin: 4px 0;"><strong>Tipo de Sangre:</strong> ${encontrado.tipoSangre}</p>
           <p style="margin: 4px 0;"><strong>Alergias:</strong> ${encontrado.alergias}</p>
           <p style="margin: 4px 0;"><strong>Contacto Tutor:</strong> ${encontrado.tutor}</p>
+          <button onclick="cargarFormularioEdicion('${encontrado.id}')" style="margin-top: 10px; background: #03658C; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Editar esta Ficha</button>
         </div>
       `;
     } else {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = ` No existe ninguna ficha para "${inputBusqueda.value}". Regístralo en el formulario de abajo.`;
+      mensajeResultado.innerHTML = `❌ No existe ninguna ficha registrada para "${inputBusqueda.value}".`;
     }
   };
 
@@ -61,33 +138,94 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Enter") realizarBusqueda();
   });
 
+  // ==========================================
+  // Guardar o Actualizar Estudiante (Con Confirmación)
+  // ==========================================
   formEstudiante.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const nuevoEstudiante = {
-      nombre: document.getElementById("regNombre").value.trim(),
-      documento: document.getElementById("regDocumento").value.trim(),
-      grado: document.getElementById("regGrado").value.trim(),
-      tipoSangre: document.getElementById("regSangre").value.trim(),
-      alergias: document.getElementById("regAlergias").value.trim(),
-      tutor: document.getElementById("regTutor").value.trim()
-    };
+    const idEditando = document.getElementById("regId").value;
+    const nombre = document.getElementById("regNombre").value.trim();
+    const documento = document.getElementById("regDocumento").value.trim();
+    const grado = document.getElementById("regGrado").value.trim();
+    const tipoSangre = document.getElementById("regSangre").value.trim();
+    const alergias = document.getElementById("regAlergias").value.trim();
+    const tutor = document.getElementById("regTutor").value.trim();
 
-    baseDatosEstudiantes.push(nuevoEstudiante);
-    guardarEnStorage();
+    // MENSAJE DE CONFIRMACIÓN
+    const confirmacion = confirm(
+      idEditando 
+        ? `¿Estás seguro de que deseas actualizar la información de "${nombre}"?`
+        : `¿Estás seguro de que deseas guardar la nueva ficha de "${nombre}" en el sistema?`
+    );
 
-    mensajeGuardado.style.color = "#28a745";
-    mensajeGuardado.innerHTML = `¡Ficha de <strong>${nuevoEstudiante.nombre}</strong> guardada exitosamente! Ya puedes buscarlo por su nombre o documento.`;
-    formEstudiante.reset();
-  });
-  
-  document.querySelectorAll("nav a").forEach(enlace => {
-    enlace.addEventListener("click", (e) => {
-      const href = enlace.getAttribute("href");
-      if (href.startsWith("#") && href.length > 1) {
-        e.preventDefault();
-        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    if (!confirmacion) return; // Si hace clic en Cancelar, detiene la operación
+
+    if (idEditando) {
+      // Modificar existente
+      const indice = baseDatosEstudiantes.findIndex(est => est.id === idEditando);
+      if (indice !== -1) {
+        baseDatosEstudiantes[indice] = { id: idEditando, nombre, documento, grado, tipoSangre, alergias, tutor };
+        mensajeGuardado.style.color = "#28a745";
+        mensajeGuardado.innerHTML = `✅ Ficha de <strong>${nombre}</strong> actualizada correctamente.`;
       }
-    });
+    } else {
+      // Crear nuevo
+      const nuevoEstudiante = { id: Date.now().toString(), nombre, documento, grado, tipoSangre, alergias, tutor };
+      baseDatosEstudiantes.push(nuevoEstudiante);
+      mensajeGuardado.style.color = "#28a745";
+      mensajeGuardado.innerHTML = `✅ Ficha de <strong>${nombre}</strong> guardada exitosamente.`;
+    }
+
+    guardarEnStorage();
+    resetearFormulario();
   });
+
+  // Resetear Formulario
+  const resetearFormulario = () => {
+    formEstudiante.reset();
+    document.getElementById("regId").value = "";
+    tituloFormulario.textContent = "➕ Registrar Nuevo Estudiante";
+    btnGuardar.textContent = "Guardar Ficha en Sistema";
+    btnCancelarEdicion.style.display = "none";
+  };
+
+  btnCancelarEdicion.addEventListener("click", resetearFormulario);
+
+  // ==========================================
+  // Funciones Globales para Editar y Eliminar
+  // ==========================================
+  window.cargarFormularioEdicion = (id) => {
+    const estudiante = baseDatosEstudiantes.find(est => est.id === id);
+    if (!estudiante) return;
+
+    document.getElementById("regId").value = estudiante.id;
+    document.getElementById("regNombre").value = estudiante.nombre;
+    document.getElementById("regDocumento").value = estudiante.documento;
+    document.getElementById("regGrado").value = estudiante.grado;
+    document.getElementById("regSangre").value = estudiante.tipoSangre;
+    document.getElementById("regAlergias").value = estudiante.alergias;
+    document.getElementById("regTutor").value = estudiante.tutor;
+
+    tituloFormulario.textContent = `✏️ Editando Ficha de: ${estudiante.nombre}`;
+    btnGuardar.textContent = "Guardar Cambios";
+    btnCancelarEdicion.style.display = "inline-block";
+
+    // Llevar la pantalla hacia el formulario
+    document.getElementById("fichas").scrollIntoView({ behavior: "smooth" });
+  };
+
+  window.eliminarEstudiante = (id, nombre) => {
+    const confirmacion = confirm(`⚠️ ¿Deseas eliminar permanentemente la ficha médica de "${nombre}"? Esta acción no se puede deshacer.`);
+    
+    if (confirmacion) {
+      baseDatosEstudiantes = baseDatosEstudiantes.filter(est => est.id !== id);
+      guardarEnStorage();
+      mensajeResultado.innerHTML = "";
+      alert(`La ficha de ${nombre} ha sido eliminada del sistema.`);
+    }
+  };
+
+  // Cargar el directorio inicial
+  renderizarDirectorio();
 });
