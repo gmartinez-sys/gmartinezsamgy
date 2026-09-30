@@ -1,4 +1,4 @@
-// Base de datos inicial por defecto
+
 const iniciales = [
   {
     id: "1001234567",
@@ -29,26 +29,22 @@ const iniciales = [
   }
 ];
 
-// Obtener registros guardados
+
 let baseDatosEstudiantes = JSON.parse(localStorage.getItem("samgy_estudiantes")) || iniciales;
 
-// Función para cambiar de Pestaña/Vista mediante el Menú
 window.cambiarPestana = (nombrePestana) => {
   // Ocultar todas las secciones
   const secciones = document.querySelectorAll('.vista-seccion');
   secciones.forEach(sec => sec.classList.remove('activo'));
 
-  // Desactivar todos los botones de navegación
   const botones = document.querySelectorAll('.nav-btn');
   botones.forEach(btn => btn.classList.remove('activo'));
 
-  // Mostrar la sección elegida
   const seccionActiva = document.getElementById(`vista-${nombrePestana}`);
   if (seccionActiva) {
     seccionActiva.classList.add('activo');
   }
 
-  // Marcar botón activo
   const btnActivo = Array.from(botones).find(btn => btn.getAttribute('onclick').includes(nombrePestana));
   if (btnActivo) {
     btnActivo.classList.add('activo');
@@ -71,9 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarDirectorio();
   };
 
-  // ==========================================
-  // Renderizar Directorio en Casillas Rectangulares por Grados
-  // ==========================================
   const renderizarDirectorio = () => {
     contenedorGrados.innerHTML = "";
 
@@ -82,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Agrupar estudiantes por Grado
     const porGrados = {};
     baseDatosEstudiantes.forEach(est => {
       const grado = est.grado.toUpperCase();
@@ -90,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       porGrados[grado].push(est);
     });
 
-    // Construir bloques por Grado y Casillas Rectangulares por Estudiante
     Object.keys(porGrados).sort().forEach(grado => {
       const bloque = document.createElement("div");
       bloque.className = "bloque-grado";
@@ -103,10 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
               <p><strong>👤 ${est.nombre}</strong></p>
             </div>
             <div class="casilla-body">
-              <p><strong>🪪 Doc:</strong> ${est.documento}</p>
-              <p><strong>🩸 Sangre:</strong> ${est.tipoSangre}</p>
-              <p><strong>⚠️ Alergias:</strong> ${est.alergias}</p>
-              <p><strong>📞 Tutor:</strong> ${est.tutor}</p>
+              <p><strong> Doc:</strong> ${est.documento}</p>
+              <p><strong> Sangre:</strong> ${est.tipoSangre}</p>
+              <p><strong> Alergias:</strong> ${est.alergias}</p>
+              <p><strong> Tutor:</strong> ${est.tutor}</p>
             </div>
             <div class="acciones-casilla">
               <button class="btn-editar" onclick="cargarFormularioEdicion('${est.id}')">✏️ Editar</button>
@@ -117,18 +108,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       tarjetasHTML += `</div>`;
 
-      bloque.innerHTML = `<h4>🏫 Grado: ${grado} (${porGrados[grado].length} estudiantes)</h4>${tarjetasHTML}`;
+      bloque.innerHTML = `<h4> Grado: ${grado} (${porGrados[grado].length} estudiantes)</h4>${tarjetasHTML}`;
       contenedorGrados.appendChild(bloque);
     });
   };
 
-  // Búsqueda
   const realizarBusqueda = () => {
     const termino = inputBusqueda.value.trim().toLowerCase();
 
     if (termino === "") {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = "⚠️ Ingresa un nombre o documento para buscar.";
+      mensajeResultado.innerHTML = "Ingresa un nombre o documento para buscar.";
       return;
     }
 
@@ -151,14 +141,13 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     } else {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = `❌ No existe ninguna ficha registrada para "${inputBusqueda.value}".`;
+      mensajeResultado.innerHTML = `No existe ninguna ficha registrada para "${inputBusqueda.value}".`;
     }
   };
 
   btnBuscar.addEventListener("click", realizarBusqueda);
   inputBusqueda.addEventListener("keypress", (e) => { if (e.key === "Enter") realizarBusqueda(); });
 
-  // Guardar/Modificar con AVISO DE CONFIRMACIÓN
   formEstudiante.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -170,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const alergias = document.getElementById("regAlergias").value.trim();
     const tutor = document.getElementById("regTutor").value.trim();
 
-    // CONFIRMACIÓN DE SEGURIDAD PREVIA
     const confirmacion = confirm(
       idEditando 
         ? `¿Estás seguro de que deseas actualizar la información de "${nombre}"?`
@@ -184,13 +172,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (indice !== -1) {
         baseDatosEstudiantes[indice] = { id: idEditando, nombre, documento, grado, tipoSangre, alergias, tutor };
         mensajeGuardado.style.color = "#28a745";
-        mensajeGuardado.innerHTML = `✅ Ficha de <strong>${nombre}</strong> actualizada correctamente.`;
+        mensajeGuardado.innerHTML = ` Ficha de <strong>${nombre}</strong> actualizada correctamente.`;
       }
     } else {
       const nuevoEstudiante = { id: Date.now().toString(), nombre, documento, grado, tipoSangre, alergias, tutor };
       baseDatosEstudiantes.push(nuevoEstudiante);
       mensajeGuardado.style.color = "#28a745";
-      mensajeGuardado.innerHTML = `✅ Ficha de <strong>${nombre}</strong> guardada exitosamente.`;
+      mensajeGuardado.innerHTML = ` Ficha de <strong>${nombre}</strong> guardada exitosamente.`;
     }
 
     guardarEnStorage();
@@ -220,16 +208,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("regAlergias").value = estudiante.alergias;
     document.getElementById("regTutor").value = estudiante.tutor;
 
-    tituloFormulario.textContent = `✏️ Editando Ficha de: ${estudiante.nombre}`;
+    tituloFormulario.textContent = ` Editando Ficha de: ${estudiante.nombre}`;
     btnGuardar.textContent = "Guardar Cambios";
     btnCancelarEdicion.style.display = "inline-block";
 
-    // Ir automáticamente a la pestaña de Fichas Estudiantiles
     cambiarPestana('fichas');
   };
 
   window.eliminarEstudiante = (id, nombre) => {
-    const confirmacion = confirm(`⚠️ ¿Deseas eliminar permanentemente la ficha médica de "${nombre}"?`);
+    const confirmacion = confirm(`¿Deseas eliminar permanentemente la ficha médica de "${nombre}"?`);
     
     if (confirmacion) {
       baseDatosEstudiantes = baseDatosEstudiantes.filter(est => est.id !== id);
