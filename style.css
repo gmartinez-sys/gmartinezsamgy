@@ -1,4 +1,4 @@
-/* Paleta Oficial SAMGY */
+
 :root {
   --azul-oscuro: #03658C; /* Institucional */
   --azul-claro: #4FB3D9;  /* Clínico */
@@ -37,10 +37,10 @@ h1, h2, h3 {
 }
 
 .img-logo {
-  max-height: 80px; /* Tamaño optimizado para destacar el logo */
+  max-height: 80px; 
   width: auto;
   object-fit: contain;
-  background-color: var(--blanco); /* Fondo blanco para destacar el logo */
+  background-color: var(--blanco); 
   padding: 8px 20px;
   border-radius: 8px;
 }
