@@ -41,11 +41,11 @@
     <!-- VISTA 2: FICHAS ESTUDIANTILES (Registro y Búsqueda) -->
     <section id="vista-fichas" class="vista-seccion">
       <div class="seccion-fichas">
-        <h3>📋 Módulo de Fichas Estudiantiles</h3>
+        <h3> Módulo de Fichas Estudiantiles</h3>
         
         <!-- Búsqueda Rápida -->
         <div class="contenedor-caja">
-          <h4>🔍 Consultar Ficha Médica Rápidamente</h4>
+          <h4>Consultar Ficha Médica Rápidamente</h4>
           <div class="busqueda-rapida">
             <input type="text" id="inputBusqueda" placeholder="Buscar por nombre, apellido o documento...">
             <button type="button" id="btnBuscar">Buscar</button>
@@ -53,7 +53,7 @@
           <div id="mensajeResultado" class="mensaje-busqueda"></div>
         </div>
 
-        <!-- Formulario para Registrar / Editar -->
+        <!-- Formulario para Registrar / Editar con MENÚ DESPLEGABLE DE GRADOS -->
         <div class="contenedor-caja" style="margin-top: 20px;">
           <h4 id="tituloFormulario">➕ Registrar Nuevo Estudiante</h4>
           <form id="formEstudiante" class="form-grid">
@@ -63,22 +63,43 @@
               <label><strong>Nombre completo:</strong></label>
               <input type="text" id="regNombre" placeholder="Ej: Juan Pérez" required>
             </div>
+            
             <div>
               <label><strong>Documento de identidad:</strong></label>
               <input type="text" id="regDocumento" placeholder="Ej: 1001234567" required>
             </div>
+
+            <!-- DESPLEGABLE DE GRADO -->
             <div>
               <label><strong>Grado escolar:</strong></label>
-              <input type="text" id="regGrado" placeholder="Ej: 10°A" required>
+              <select id="regGrado" required>
+                <option value="" disabled selected>Selecciona un grado...</option>
+                <option value="Preescolar">Preescolar</option>
+                <option value="1°">1°</option>
+                <option value="2°">2°</option>
+                <option value="3°">3°</option>
+                <option value="4°">4°</option>
+                <option value="5°">5°</option>
+                <option value="6°A">6°A</option>
+                <option value="6°B">6°B</option>
+                <option value="7°">7°</option>
+                <option value="8°">8°</option>
+                <option value="9°">9°</option>
+                <option value="10°">10°</option>
+                <option value="11°">11°</option>
+              </select>
             </div>
+
             <div>
               <label><strong>Tipo de sangre:</strong></label>
               <input type="text" id="regSangre" placeholder="Ej: O+" required>
             </div>
+            
             <div>
               <label><strong>Alergias / Condiciones:</strong></label>
               <input type="text" id="regAlergias" placeholder="Ej: Penicilina o Ninguna" required>
             </div>
+            
             <div>
               <label><strong>Nombre y Teléfono del Tutor:</strong></label>
               <input type="text" id="regTutor" placeholder="Ej: Carlos Pérez (3001234567)" required>
@@ -97,7 +118,7 @@
     <!-- VISTA 3: DIRECTORIO CLASIFICADO POR GRADOS EN CASILLAS -->
     <section id="vista-directorio" class="vista-seccion">
       <div class="seccion-fichas" style="border-color: #03658C;">
-        <h3>📚 Directorio de Estudiantes Guardados (Clasificado por Grados)</h3>
+        <h3> Directorio de Estudiantes Guardados (Clasificado por Grados)</h3>
         <p>A continuación se muestran todas las fichas activas distribuidas en casillas individuales organizadas por grado escolar.</p>
         
         <div id="contenedorGrados" class="contenedor-grados">
