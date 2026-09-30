@@ -1,4 +1,4 @@
-// Estudiantes por defecto si el navegador aún no tiene ninguno guardado
+
 const iniciales = [
   {
     nombre: "Juan Pablo Pérez",
@@ -10,7 +10,6 @@ const iniciales = [
   }
 ];
 
-// Obtener la lista guardada en localStorage o usar la inicial
 let baseDatosEstudiantes = JSON.parse(localStorage.getItem("samgy_estudiantes")) || iniciales;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,20 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const formEstudiante = document.getElementById("formEstudiante");
   const mensajeGuardado = document.getElementById("mensajeGuardado");
 
-  // Guardar en la memoria local
+
   const guardarEnStorage = () => {
     localStorage.setItem("samgy_estudiantes", JSON.stringify(baseDatosEstudiantes));
   };
 
-  // ==========================================
-  // Búsqueda de Estudiantes
-  // ==========================================
+
   const realizarBusqueda = () => {
     const termino = inputBusqueda.value.trim().toLowerCase();
 
     if (termino === "") {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = "⚠️ Ingresa un nombre, apellido o documento.";
+      mensajeResultado.innerHTML = " Ingresa un nombre, apellido o documento.";
       return;
     }
 
@@ -55,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     } else {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = `❌ No existe ninguna ficha para "${inputBusqueda.value}". Regístralo en el formulario de abajo.`;
+      mensajeResultado.innerHTML = ` No existe ninguna ficha para "${inputBusqueda.value}". Regístralo en el formulario de abajo.`;
     }
   };
 
@@ -64,9 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Enter") realizarBusqueda();
   });
 
-  // ==========================================
-  // Registrar Nuevo Estudiante
-  // ==========================================
   formEstudiante.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -79,17 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
       tutor: document.getElementById("regTutor").value.trim()
     };
 
-    // Añadir a la lista y guardar
     baseDatosEstudiantes.push(nuevoEstudiante);
     guardarEnStorage();
 
-    // Notificar y limpiar campos
     mensajeGuardado.style.color = "#28a745";
-    mensajeGuardado.innerHTML = `✅ ¡Ficha de <strong>${nuevoEstudiante.nombre}</strong> guardada exitosamente! Ya puedes buscarlo por su nombre o documento.`;
+    mensajeGuardado.innerHTML = `¡Ficha de <strong>${nuevoEstudiante.nombre}</strong> guardada exitosamente! Ya puedes buscarlo por su nombre o documento.`;
     formEstudiante.reset();
   });
-
-  // Navegación suave
+  
   document.querySelectorAll("nav a").forEach(enlace => {
     enlace.addEventListener("click", (e) => {
       const href = enlace.getAttribute("href");
