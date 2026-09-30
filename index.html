@@ -6,6 +6,7 @@
   <title>SAMGY - Sistema de Gestión de Enfermería Escolar</title>
   <link rel="stylesheet" href="style.css">
 
+  <!-- Tipografías Oficiales: Montserrat y Open Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -15,11 +16,12 @@
   <header id="header">
     <div class="logo-area">
       <!-- Logo oficial de SAMGY -->
-      <img src="logo-removebg-preview.png" alt="Logo SAMGY" class="img-logo">
+      <img src="logo.png" alt="Logo SAMGY" class="img-logo">
       <p class="subtitulo-header">Sistema Web de Gestión de Datos — Colegio San Alberto Magno</p>
     </div>
     <nav>
       <a href="#" class="activo">Inicio</a>
+      <a href="#fichas">Fichas Estudiantiles</a>
       <a href="#integrantes">Equipo</a>
       <a href="#sistema">Sistema</a>
       <a href="#herramientas">Herramientas</a>
@@ -27,15 +29,40 @@
   </header>
 
   <main>
-  
+    <!-- Presentación Principal -->
     <section class="hero">
       <h2>Gestión de Salud Escolar Inteligente</h2>
       <p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil[cite: 1].</p>
-      <div class="busqueda-rapida">
-        <input type="text" id="inputBusqueda" placeholder="Buscar estudiante por nombre o documento...">
-        <button type="button" id="btnBuscar">Buscar Estudiante</button>
+    </section>
+
+    <!-- MÓDULO: Fichas Estudiantiles -->
+    <section id="fichas" class="seccion-fichas">
+      <h3>📋 Módulo de Fichas Estudiantiles</h3>
+      
+      <!-- Opción A: Buscar Estudiante -->
+      <div class="contenedor-caja">
+        <h4>🔍 Consultar Ficha Médica</h4>
+        <div class="busqueda-rapida">
+          <input type="text" id="inputBusqueda" placeholder="Nombre, apellido o documento...">
+          <button type="button" id="btnBuscar">Buscar</button>
+        </div>
+        <div id="mensajeResultado" class="mensaje-busqueda"></div>
       </div>
-      <p id="mensajeResultado" class="mensaje-busqueda"></p>
+
+      <!-- Opción B: Formulario Nuevo Estudiante -->
+      <div class="contenedor-caja" style="margin-top: 20px;">
+        <h4>➕ Agregar Nuevo Estudiante</h4>
+        <form id="formEstudiante" class="form-grid">
+          <input type="text" id="regNombre" placeholder="Nombre completo" required>
+          <input type="text" id="regDocumento" placeholder="Documento de identidad" required>
+          <input type="text" id="regGrado" placeholder="Grado (ej: 10°A)" required>
+          <input type="text" id="regSangre" placeholder="Tipo de sangre (ej: O+)" required>
+          <input type="text" id="regAlergias" placeholder="Alergias (o Ninguna)" required>
+          <input type="text" id="regTutor" placeholder="Nombre y Teléfono del tutor" required>
+          <button type="submit" id="btnGuardar">Guardar Ficha en Sistema</button>
+        </form>
+        <p id="mensajeGuardado" style="font-weight: 600; margin-top: 10px;"></p>
+      </div>
     </section>
 
     <!-- Integrantes -->
