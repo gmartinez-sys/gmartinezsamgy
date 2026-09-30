@@ -22,45 +22,85 @@
     <nav>
       <a href="#" class="activo">Inicio</a>
       <a href="#fichas">Fichas Estudiantiles</a>
+      <a href="#directorio">Directorio por Grados</a>
       <a href="#integrantes">Equipo</a>
       <a href="#sistema">Sistema</a>
-      <a href="#herramientas">Herramientas</a>
     </nav>
   </header>
 
   <main>
+    <!-- Presentación Principal -->
     <section class="hero">
       <h2>Gestión de Salud Escolar Inteligente</h2>
       <p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil[cite: 1].</p>
     </section>
 
+    <!-- MÓDULO: Fichas Estudiantiles (Búsqueda y Formulario) -->
     <section id="fichas" class="seccion-fichas">
-      <h3> Módulo de Fichas Estudiantiles</h3>
+      <h3>📋 Módulo de Fichas Estudiantiles</h3>
       
+      <!-- Opción A: Buscar Estudiante -->
       <div class="contenedor-caja">
-        <h4> Consultar Ficha Médica</h4>
+        <h4>🔍 Consultar Ficha Médica Rápidamente</h4>
         <div class="busqueda-rapida">
-          <input type="text" id="inputBusqueda" placeholder="Nombre, apellido o documento...">
+          <input type="text" id="inputBusqueda" placeholder="Buscar por nombre, apellido o documento...">
           <button type="button" id="btnBuscar">Buscar</button>
         </div>
         <div id="mensajeResultado" class="mensaje-busqueda"></div>
       </div>
-      
+
+      <!-- Opción B: Formulario Nuevo / Editar Estudiante -->
       <div class="contenedor-caja" style="margin-top: 20px;">
-        <h4> Agregar Nuevo Estudiante</h4>
+        <h4 id="tituloFormulario">➕ Registrar Nuevo Estudiante</h4>
         <form id="formEstudiante" class="form-grid">
-          <input type="text" id="regNombre" placeholder="Nombre completo" required>
-          <input type="text" id="regDocumento" placeholder="Documento de identidad" required>
-          <input type="text" id="regGrado" placeholder="Grado (ej: 10°A)" required>
-          <input type="text" id="regSangre" placeholder="Tipo de sangre (ej: O+)" required>
-          <input type="text" id="regAlergias" placeholder="Alergias (o Ninguna)" required>
-          <input type="text" id="regTutor" placeholder="Nombre y Teléfono del tutor" required>
-          <button type="submit" id="btnGuardar">Guardar Ficha en Sistema</button>
+          <!-- Campo oculto para saber si se está editando -->
+          <input type="hidden" id="regId">
+
+          <div>
+            <label><strong>Nombre completo:</strong></label>
+            <input type="text" id="regNombre" placeholder="Ej: Juan Pérez" required>
+          </div>
+          <div>
+            <label><strong>Documento de identidad:</strong></label>
+            <input type="text" id="regDocumento" placeholder="Ej: 1001234567" required>
+          </div>
+          <div>
+            <label><strong>Grado escolar:</strong></label>
+            <input type="text" id="regGrado" placeholder="Ej: 10°A" required>
+          </div>
+          <div>
+            <label><strong>Tipo de sangre:</strong></label>
+            <input type="text" id="regSangre" placeholder="Ej: O+" required>
+          </div>
+          <div>
+            <label><strong>Alergias / Condiciones:</strong></label>
+            <input type="text" id="regAlergias" placeholder="Ej: Penicilina o Ninguna" required>
+          </div>
+          <div>
+            <label><strong>Nombre y Teléfono del Tutor:</strong></label>
+            <input type="text" id="regTutor" placeholder="Ej: Carlos Pérez (3001234567)" required>
+          </div>
+
+          <div style="grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 10px;">
+            <button type="submit" id="btnGuardar" style="flex: 1;">Guardar Ficha en Sistema</button>
+            <button type="button" id="btnCancelarEdicion" style="background-color: #6c757d; display: none;">Cancelar Edición</button>
+          </div>
         </form>
         <p id="mensajeGuardado" style="font-weight: 600; margin-top: 10px;"></p>
       </div>
     </section>
 
+    <!-- MÓDULO: Directorio Completo por Grados -->
+    <section id="directorio" class="seccion-fichas" style="border-color: #03658C;">
+      <h3>📚 Directorio de Estudiantes Guardados (Clasificado por Grados)</h3>
+      <p>Aquí puedes consultar todos los registros en el sistema, modificarlos o eliminarlos según sea necesario.</p>
+      
+      <div id="contenedorGrados" class="contenedor-grados">
+        <!-- Se llena dinámicamente con JS -->
+      </div>
+    </section>
+
+    <!-- Integrantes -->
     <section id="integrantes" class="tarjeta-equipo">
       <h3>Integrantes del Proyecto:</h3>
       <ul>
@@ -71,7 +111,8 @@
         <li><strong>Sajoha Paola Vasquez Rodriguez</strong> (@svasquez-rdg) — Documentadora / Comunicaciones</li>
       </ul>
     </section>
-    
+
+    <!-- Resumen y Objetivos -->
     <section id="sistema" class="contenido-grid">
       <div class="tarjeta-info">
         <h3>Presentación del Proyecto</h3>
@@ -90,15 +131,6 @@
           <li>Generar reportes y actualizar fichas periódicamente[cite: 1].</li>
         </ul>
       </div>
-    </section>
-
-    <section id="herramientas" class="tarjeta-herramientas">
-      <h3>Herramientas Tecnológicas Implementadas</h3>
-      <p>
-        • <strong>HTML5 & CSS3:</strong> Para maquetación visual basada en la identidad de marca[cite: 1].<br>
-        • <strong>JavaScript:</strong> Para la lógica de interacción y búsquedas.<br>
-        • <strong>Git & GitHub:</strong> Control de versiones y despliegue continuo.
-      </p>
     </section>
   </main>
 
