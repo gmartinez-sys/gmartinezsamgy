@@ -1,4 +1,4 @@
-// Estudiantes iniciales por defecto si no hay nada en el navegador
+// Base de datos inicial por defecto
 const iniciales = [
   {
     id: "1001234567",
@@ -29,8 +29,31 @@ const iniciales = [
   }
 ];
 
-// Obtener datos guardados en el navegador o iniciar con la lista base
+// Obtener registros guardados
 let baseDatosEstudiantes = JSON.parse(localStorage.getItem("samgy_estudiantes")) || iniciales;
+
+// Función para cambiar de Pestaña/Vista mediante el Menú
+window.cambiarPestana = (nombrePestana) => {
+  // Ocultar todas las secciones
+  const secciones = document.querySelectorAll('.vista-seccion');
+  secciones.forEach(sec => sec.classList.remove('activo'));
+
+  // Desactivar todos los botones de navegación
+  const botones = document.querySelectorAll('.nav-btn');
+  botones.forEach(btn => btn.classList.remove('activo'));
+
+  // Mostrar la sección elegida
+  const seccionActiva = document.getElementById(`vista-${nombrePestana}`);
+  if (seccionActiva) {
+    seccionActiva.classList.add('activo');
+  }
+
+  // Marcar botón activo
+  const btnActivo = Array.from(botones).find(btn => btn.getAttribute('onclick').includes(nombrePestana));
+  if (btnActivo) {
+    btnActivo.classList.add('activo');
+  }
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   const btnBuscar = document.getElementById("btnBuscar");
@@ -43,24 +66,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnGuardar = document.getElementById("btnGuardar");
   const btnCancelarEdicion = document.getElementById("btnCancelarEdicion");
 
-  // Guardar datos en el localStorage
   const guardarEnStorage = () => {
     localStorage.setItem("samgy_estudiantes", JSON.stringify(baseDatosEstudiantes));
     renderizarDirectorio();
   };
 
   // ==========================================
-  // Renderizar Directorio Clasificado por Grados
+  // Renderizar Directorio en Casillas Rectangulares por Grados
   // ==========================================
   const renderizarDirectorio = () => {
     contenedorGrados.innerHTML = "";
 
     if (baseDatosEstudiantes.length === 0) {
-      contenedorGrados.innerHTML = "<p>No hay fichas registradas en el sistema actualmente.</p>";
+      contenedorGrados.innerHTML = "<p style='padding: 10px;'>No hay fichas registradas en el sistema actualmente.</p>";
       return;
     }
 
-    // Agrupar estudiantes por grado
+    // Agrupar estudiantes por Grado
     const porGrados = {};
     baseDatosEstudiantes.forEach(est => {
       const grado = est.grado.toUpperCase();
@@ -68,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
       porGrados[grado].push(est);
     });
 
-    // Crear la estructura HTML para cada grado
+    // Construir bloques por Grado y Casillas Rectangulares por Estudiante
     Object.keys(porGrados).sort().forEach(grado => {
       const bloque = document.createElement("div");
       bloque.className = "bloque-grado";
@@ -76,15 +98,17 @@ document.addEventListener("DOMContentLoaded", () => {
       let tarjetasHTML = `<div class="grid-estudiantes">`;
       porGrados[grado].forEach(est => {
         tarjetasHTML += `
-          <div class="tarjeta-estudiante">
-            <div>
+          <div class="casilla-ficha">
+            <div class="casilla-ficha-header">
               <p><strong>👤 ${est.nombre}</strong></p>
-              <p><strong>Doc:</strong> ${est.documento}</p>
-              <p><strong>Sangre:</strong> ${est.tipoSangre}</p>
-              <p><strong>Alergias:</strong> ${est.alergias}</p>
-              <p><strong>Tutor:</strong> ${est.tutor}</p>
             </div>
-            <div class="acciones-tarjeta">
+            <div class="casilla-body">
+              <p><strong>🪪 Doc:</strong> ${est.documento}</p>
+              <p><strong>🩸 Sangre:</strong> ${est.tipoSangre}</p>
+              <p><strong>⚠️ Alergias:</strong> ${est.alergias}</p>
+              <p><strong>📞 Tutor:</strong> ${est.tutor}</p>
+            </div>
+            <div class="acciones-casilla">
               <button class="btn-editar" onclick="cargarFormularioEdicion('${est.id}')">✏️ Editar</button>
               <button class="btn-eliminar" onclick="eliminarEstudiante('${est.id}', '${est.nombre}')">🗑️ Eliminar</button>
             </div>
@@ -98,15 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // ==========================================
-  // Búsqueda de Estudiantes
-  // ==========================================
+  // Búsqueda
   const realizarBusqueda = () => {
     const termino = inputBusqueda.value.trim().toLowerCase();
 
     if (termino === "") {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = "⚠️ Ingresa un nombre, apellido o documento para buscar.";
+      mensajeResultado.innerHTML = "⚠️ Ingresa un nombre o documento para buscar.";
       return;
     }
 
@@ -116,15 +138,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (encontrado) {
       mensajeResultado.innerHTML = `
-        <div style="background: #ffffff; border: 2px solid #4FB3D9; border-radius: 8px; padding: 15px; margin-top: 15px; text-align: left;">
+        <div style="background: #ffffff; border: 2px solid #4FB3D9; border-radius: 8px; padding: 15px; margin-top: 15px;">
           <h4 style="margin: 0 0 8px 0; color: #03658C;">📋 Ficha Médica Encontrada</h4>
           <p style="margin: 4px 0;"><strong>Estudiante:</strong> ${encontrado.nombre}</p>
           <p style="margin: 4px 0;"><strong>Documento:</strong> ${encontrado.documento}</p>
           <p style="margin: 4px 0;"><strong>Grado:</strong> ${encontrado.grado}</p>
-          <p style="margin: 4px 0;"><strong>Tipo de Sangre:</strong> ${encontrado.tipoSangre}</p>
+          <p style="margin: 4px 0;"><strong>Sangre:</strong> ${encontrado.tipoSangre}</p>
           <p style="margin: 4px 0;"><strong>Alergias:</strong> ${encontrado.alergias}</p>
-          <p style="margin: 4px 0;"><strong>Contacto Tutor:</strong> ${encontrado.tutor}</p>
-          <button onclick="cargarFormularioEdicion('${encontrado.id}')" style="margin-top: 10px; background: #03658C; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Editar esta Ficha</button>
+          <p style="margin: 4px 0;"><strong>Tutor:</strong> ${encontrado.tutor}</p>
+          <button onclick="cargarFormularioEdicion('${encontrado.id}')" style="margin-top: 10px; background: #03658C; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">✏️ Editar esta Ficha</button>
         </div>
       `;
     } else {
@@ -134,13 +156,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   btnBuscar.addEventListener("click", realizarBusqueda);
-  inputBusqueda.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") realizarBusqueda();
-  });
+  inputBusqueda.addEventListener("keypress", (e) => { if (e.key === "Enter") realizarBusqueda(); });
 
-  // ==========================================
-  // Guardar o Actualizar Estudiante (Con Confirmación)
-  // ==========================================
+  // Guardar/Modificar con AVISO DE CONFIRMACIÓN
   formEstudiante.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -152,17 +170,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const alergias = document.getElementById("regAlergias").value.trim();
     const tutor = document.getElementById("regTutor").value.trim();
 
-    // MENSAJE DE CONFIRMACIÓN
+    // CONFIRMACIÓN DE SEGURIDAD PREVIA
     const confirmacion = confirm(
       idEditando 
         ? `¿Estás seguro de que deseas actualizar la información de "${nombre}"?`
-        : `¿Estás seguro de que deseas guardar la nueva ficha de "${nombre}" en el sistema?`
+        : `¿Estás seguro de que deseas guardar la ficha médica de "${nombre}"?`
     );
 
-    if (!confirmacion) return; // Si hace clic en Cancelar, detiene la operación
+    if (!confirmacion) return; // Si hace clic en Cancelar, se detiene la acción
 
     if (idEditando) {
-      // Modificar existente
       const indice = baseDatosEstudiantes.findIndex(est => est.id === idEditando);
       if (indice !== -1) {
         baseDatosEstudiantes[indice] = { id: idEditando, nombre, documento, grado, tipoSangre, alergias, tutor };
@@ -170,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
         mensajeGuardado.innerHTML = `✅ Ficha de <strong>${nombre}</strong> actualizada correctamente.`;
       }
     } else {
-      // Crear nuevo
       const nuevoEstudiante = { id: Date.now().toString(), nombre, documento, grado, tipoSangre, alergias, tutor };
       baseDatosEstudiantes.push(nuevoEstudiante);
       mensajeGuardado.style.color = "#28a745";
@@ -181,7 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resetearFormulario();
   });
 
-  // Resetear Formulario
   const resetearFormulario = () => {
     formEstudiante.reset();
     document.getElementById("regId").value = "";
@@ -192,9 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnCancelarEdicion.addEventListener("click", resetearFormulario);
 
-  // ==========================================
-  // Funciones Globales para Editar y Eliminar
-  // ==========================================
+  // Funciones para Editar y Eliminar
   window.cargarFormularioEdicion = (id) => {
     const estudiante = baseDatosEstudiantes.find(est => est.id === id);
     if (!estudiante) return;
@@ -211,21 +224,20 @@ document.addEventListener("DOMContentLoaded", () => {
     btnGuardar.textContent = "Guardar Cambios";
     btnCancelarEdicion.style.display = "inline-block";
 
-    // Llevar la pantalla hacia el formulario
-    document.getElementById("fichas").scrollIntoView({ behavior: "smooth" });
+    // Ir automáticamente a la pestaña de Fichas Estudiantiles
+    cambiarPestana('fichas');
   };
 
   window.eliminarEstudiante = (id, nombre) => {
-    const confirmacion = confirm(`⚠️ ¿Deseas eliminar permanentemente la ficha médica de "${nombre}"? Esta acción no se puede deshacer.`);
+    const confirmacion = confirm(`⚠️ ¿Deseas eliminar permanentemente la ficha médica de "${nombre}"?`);
     
     if (confirmacion) {
       baseDatosEstudiantes = baseDatosEstudiantes.filter(est => est.id !== id);
       guardarEnStorage();
       mensajeResultado.innerHTML = "";
-      alert(`La ficha de ${nombre} ha sido eliminada del sistema.`);
     }
   };
 
-  // Cargar el directorio inicial
+  // Renderizar directorio al cargar
   renderizarDirectorio();
 });
