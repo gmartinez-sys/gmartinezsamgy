@@ -1,174 +1,335 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAMGY - Sistema de Gestión de Enfermería Escolar</title>
-  <link rel="stylesheet" href="style.css">
+/* Paleta Oficial SAMGY */
+:root {
+  --azul-oscuro: #03658C;
+  --azul-claro: #4FB3D9;
+  --gris-suave: #D9E2E8;
+  --blanco: #FFFFFF;
+  --texto-oscuro: #333333;
+  --rojo: #d9534f;
+  --verde: #28a745;
+}
 
-  <!-- Tipografías Oficiales: Montserrat y Open Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--blanco);
+  color: var(--texto-oscuro);
+  margin: 0;
+  padding: 0;
+}
 
-  <header id="header">
-    <div class="logo-area">
-      <!-- Logo oficial de SAMGY -->
-      <img src="logo.png" alt="Logo SAMGY" class="img-logo">
-      <p class="subtitulo-header">Sistema Web de Gestión de Datos — Colegio San Alberto Magno</p>
-    </div>
-    <!-- Menú de Navegación por Pestañas -->
-    <nav>
-      <button class="nav-btn activo" onclick="cambiarPestana('inicio')">Inicio</button>
-      <button class="nav-btn" onclick="cambiarPestana('fichas')">Fichas Estudiantiles</button>
-      <button class="nav-btn" onclick="cambiarPestana('directorio')">Directorio por Grados</button>
-      <button class="nav-btn" onclick="cambiarPestana('integrantes')">Equipo</button>
-      <button class="nav-btn" onclick="cambiarPestana('sistema')">Sistema</button>
-    </nav>
-  </header>
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+}
 
-  <main>
-    <!-- VISTA 1: INICIO -->
-    <section id="vista-inicio" class="vista-seccion activo">
-      <div class="hero">
-        <h2>Gestión de Salud Escolar Inteligente</h2>
-        <p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil[cite: 1]. Utiliza el menú superior para navegar entre los diferentes módulos del sistema.</p>
-      </div>
-    </section>
+/* Header & Nav */
+#header {
+  background-color: var(--azul-oscuro);
+  color: var(--blanco);
+  padding: 20px 10px;
+  text-align: center;
+  border-bottom: 4px solid var(--azul-claro);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-    <!-- VISTA 2: FICHAS ESTUDIANTILES (Registro y Búsqueda) -->
-    <section id="vista-fichas" class="vista-seccion">
-      <div class="seccion-fichas">
-        <h3>📋 Módulo de Fichas Estudiantiles</h3>
-        
-        <!-- Búsqueda Rápida -->
-        <div class="contenedor-caja">
-          <h4>🔍 Consultar Ficha Médica Rápidamente</h4>
-          <div class="busqueda-rapida">
-            <input type="text" id="inputBusqueda" placeholder="Buscar por nombre, apellido o documento...">
-            <button type="button" id="btnBuscar">Buscar</button>
-          </div>
-          <div id="mensajeResultado" class="mensaje-busqueda"></div>
-        </div>
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 
-        <!-- Formulario para Registrar / Editar con MENÚ DESPLEGABLE DE GRADOS -->
-        <div class="contenedor-caja" style="margin-top: 20px;">
-          <h4 id="tituloFormulario">➕ Registrar Nuevo Estudiante</h4>
-          <form id="formEstudiante" class="form-grid">
-            <input type="hidden" id="regId">
+.img-logo {
+  max-height: 65px;
+  width: auto;
+  object-fit: contain;
+  background-color: var(--blanco);
+  padding: 6px 16px;
+  border-radius: 8px;
+}
 
-            <div>
-              <label><strong>Nombre completo:</strong></label>
-              <input type="text" id="regNombre" placeholder="Ej: Juan Pérez" required>
-            </div>
-            
-            <div>
-              <label><strong>Documento de identidad:</strong></label>
-              <input type="text" id="regDocumento" placeholder="Ej: 1001234567" required>
-            </div>
+.subtitulo-header {
+  margin: 5px 0 10px 0;
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
 
-            <!-- DESPLEGABLE DE GRADO -->
-            <div>
-              <label><strong>Grado escolar:</strong></label>
-              <select id="regGrado" required>
-                <option value="" disabled selected>Selecciona un grado...</option>
-                <option value="Preescolar">Preescolar</option>
-                <option value="1°">1°</option>
-                <option value="2°">2°</option>
-                <option value="3°">3°</option>
-                <option value="4°">4°</option>
-                <option value="5°">5°</option>
-                <option value="6°A">6°A</option>
-                <option value="6°B">6°B</option>
-                <option value="7°">7°</option>
-                <option value="8°">8°</option>
-                <option value="9°">9°</option>
-                <option value="10°">10°</option>
-                <option value="11°">11°</option>
-              </select>
-            </div>
+/* Botones de Navegación por Pestañas */
+nav {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
-            <div>
-              <label><strong>Tipo de sangre:</strong></label>
-              <input type="text" id="regSangre" placeholder="Ej: O+" required>
-            </div>
-            
-            <div>
-              <label><strong>Alergias / Condiciones:</strong></label>
-              <input type="text" id="regAlergias" placeholder="Ej: Penicilina o Ninguna" required>
-            </div>
-            
-            <div>
-              <label><strong>Nombre y Teléfono del Tutor:</strong></label>
-              <input type="text" id="regTutor" placeholder="Ej: Carlos Pérez (3001234567)" required>
-            </div>
+.nav-btn {
+  background: transparent;
+  color: var(--blanco);
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
 
-            <div style="grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 10px;">
-              <button type="submit" id="btnGuardar" style="flex: 1;">Guardar Ficha en Sistema</button>
-              <button type="button" id="btnCancelarEdicion" style="background-color: #6c757d; display: none;">Cancelar Edición</button>
-            </div>
-          </form>
-          <p id="mensajeGuardado" style="font-weight: 600; margin-top: 10px;"></p>
-        </div>
-      </div>
-    </section>
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
 
-    <!-- VISTA 3: DIRECTORIO CLASIFICADO POR GRADOS EN CASILLAS -->
-    <section id="vista-directorio" class="vista-seccion">
-      <div class="seccion-fichas" style="border-color: #03658C;">
-        <h3>📚 Directorio de Estudiantes Guardados (Clasificado por Grados)</h3>
-        <p>A continuación se muestran todas las fichas activas distribuidas en casillas individuales organizadas por grado escolar.</p>
-        
-        <div id="contenedorGrados" class="contenedor-grados">
-          <!-- Las casillas/fichas se construyen dinámicamente con JS -->
-        </div>
-      </div>
-    </section>
+.nav-btn.activo {
+  background-color: var(--azul-claro);
+  color: var(--blanco);
+  border-color: var(--blanco);
+}
 
-    <!-- VISTA 4: INTEGRANTES -->
-    <section id="vista-integrantes" class="vista-seccion">
-      <div class="tarjeta-equipo">
-        <h3>Integrantes del Proyecto:</h3>
-        <ul>
-          <li><strong>Yaricel Paola Bayter Samera</strong> (@ybayter) — QA / Tester</li>
-          <li><strong>Mathias Jose Hernandez Bermudez</strong> (@mhernadez-rgb) — Desarrollador / Analista Lead</li>
-          <li><strong>Gabriela De los Ángeles Martinez Navarro</strong> (@gmartinez-sys) — Líder del Proyecto</li>
-          <li><strong>Andrea Carolina Pallares Medina</strong> (@apallares-mdna) — Diseñadora UX/UI</li>
-          <li><strong>Sajoha Paola Vasquez Rodriguez</strong> (@svasquez-rdg) — Documentadora / Comunicaciones</li>
-        </ul>
-      </div>
-    </section>
+/* Control de Vistas / Pestañas */
+main {
+  max-width: 980px;
+  margin: 25px auto;
+  padding: 0 20px;
+}
 
-    <!-- VISTA 5: SISTEMA / OBJETIVOS -->
-    <section id="vista-sistema" class="vista-seccion">
-      <div class="contenido-grid">
-        <div class="tarjeta-info">
-          <h3>Presentación del Proyecto</h3>
-          <p>
-            En el área de enfermería del Colegio San Alberto Magno, la gestión suele llevarse a cabo de forma manual[cite: 1]. 
-            SAMGY nace para centralizar, estructurar y optimizar la información médica y académica[cite: 1].
-          </p>
-        </div>
+.vista-seccion {
+  display: none; /* Se ocultan por defecto */
+}
 
-        <div class="tarjeta-info">
-          <h3>Objetivos de SAMGY</h3>
-          <ul>
-            <li>Crear una base de datos digital estudiantil[cite: 1].</li>
-            <li>Facilitar consultas rápidas de enfermería[cite: 1].</li>
-            <li>Reducir el uso de registros en papel[cite: 1].</li>
-            <li>Generar reportes y actualizar fichas periódicamente[cite: 1].</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
+.vista-seccion.activo {
+  display: block; /* Solo se muestra la pestaña activa */
+}
 
-  <footer>
-    <p>Proyecto SAMGY &copy; 2026 — Yaricel Bayter, Mathias Hernández, Gabriela Martínez, Andrea Pallares, Sajoha Vasquez</p>
-  </footer>
+.hero {
+  text-align: center;
+  background-color: var(--gris-suave);
+  padding: 30px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--azul-claro);
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.hero h2 {
+  color: var(--azul-oscuro);
+  margin-top: 0;
+}
+
+/* Módulo Fichas Estudiantiles */
+.seccion-fichas {
+  background-color: #f4f8fa;
+  border: 2px solid var(--azul-claro);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.seccion-fichas h3 {
+  color: var(--azul-oscuro);
+  margin-top: 0;
+  border-bottom: 2px solid var(--azul-claro);
+  padding-bottom: 8px;
+}
+
+.contenedor-caja {
+  background: var(--blanco);
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--gris-suave);
+}
+
+.contenedor-caja h4 {
+  margin-top: 0;
+  color: var(--azul-oscuro);
+}
+
+/* Campos de Formulario e Inputs (Incluye el <select>) */
+.busqueda-rapida {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.busqueda-rapida input, .form-grid input, .form-grid select {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid var(--azul-claro);
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: var(--blanco);
+  color: var(--texto-oscuro);
+}
+
+.busqueda-rapida input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.busqueda-rapida button, .form-grid button {
+  background-color: var(--azul-oscuro);
+  color: var(--blanco);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.busqueda-rapida button:hover, .form-grid button:hover {
+  background-color: #024a68;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.form-grid label {
+  font-size: 0.85rem;
+  color: var(--azul-oscuro);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* DIRECTORIO: Diseño en Casillas/Fichas Rectangulares */
+.bloque-grado {
+  background: var(--blanco);
+  border: 1px solid var(--azul-claro);
+  border-radius: 8px;
+  padding: 18px;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.bloque-grado h4 {
+  margin: 0 0 15px 0;
+  color: var(--azul-oscuro);
+  border-bottom: 2px solid var(--gris-suave);
+  padding-bottom: 6px;
+  font-size: 1.1rem;
+}
+
+/* Grilla para las casillas rectangulares */
+.grid-estudiantes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* Casilla/Ficha individual */
+.casilla-ficha {
+  background-color: #fdfdfd;
+  border: 1.5px solid var(--azul-claro);
+  border-left: 6px solid var(--azul-oscuro);
+  border-radius: 6px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.casilla-ficha-header {
+  border-bottom: 1px solid var(--gris-suave);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.casilla-ficha-header p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--azul-oscuro);
+}
+
+.casilla-body p {
+  margin: 4px 0;
+  font-size: 0.88rem;
+  color: var(--texto-oscuro);
+}
+
+.acciones-casilla {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.btn-editar, .btn-eliminar {
+  border: none;
+  padding: 7px 12px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+
+.btn-editar {
+  background-color: var(--azul-claro);
+  color: var(--blanco);
+}
+
+.btn-eliminar {
+  background-color: var(--rojo);
+  color: var(--blanco);
+}
+
+.btn-editar:hover, .btn-eliminar:hover {
+  opacity: 0.88;
+}
+
+/* Secciones Informativas */
+.tarjeta-equipo {
+  background-color: var(--gris-suave);
+  border-left: 5px solid var(--azul-oscuro);
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.tarjeta-equipo h3 {
+  margin-top: 0;
+  color: var(--azul-oscuro);
+}
+
+.tarjeta-equipo ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.8;
+  color: var(--azul-oscuro);
+}
+
+.contenido-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tarjeta-info {
+  background: var(--blanco);
+  flex: 1;
+  min-width: 280px;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--gris-suave);
+  border-left: 5px solid var(--azul-oscuro);
+}
+
+.tarjeta-info h3 {
+  color: var(--azul-oscuro);
+  margin-top: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #666;
+  border-top: 1px solid var(--gris-suave);
+  margin-top: 40px;
+}
