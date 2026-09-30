@@ -28,20 +28,32 @@ h1, h2, h3 {
   border-bottom: 4px solid var(--azul-claro);
 }
 
-#header h1 {
-  margin: 0;
-  font-size: 2.5rem;
-  letter-spacing: 1px;
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-#header p {
-  margin: 5px 0 15px 0;
+.img-logo {
+  max-height: 80px; /* Tamaño optimizado para destacar el logo */
+  width: auto;
+  object-fit: contain;
+  background-color: var(--blanco); /* Fondo blanco para destacar el logo */
+  padding: 8px 20px;
+  border-radius: 8px;
+}
+
+.subtitulo-header {
+  margin: 5px 0 10px 0;
   font-size: 1rem;
-  opacity: 0.9;
+  opacity: 0.95;
+  font-weight: 400;
 }
 
 nav {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 nav a {
