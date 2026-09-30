@@ -19,117 +19,127 @@
       <img src="logo.png" alt="Logo SAMGY" class="img-logo">
       <p class="subtitulo-header">Sistema Web de Gestión de Datos — Colegio San Alberto Magno</p>
     </div>
+    <!-- Menú de Navegación por Pestañas -->
     <nav>
-      <a href="#" class="activo">Inicio</a>
-      <a href="#fichas">Fichas Estudiantiles</a>
-      <a href="#directorio">Directorio por Grados</a>
-      <a href="#integrantes">Equipo</a>
-      <a href="#sistema">Sistema</a>
+      <button class="nav-btn activo" onclick="cambiarPestana('inicio')">Inicio</button>
+      <button class="nav-btn" onclick="cambiarPestana('fichas')">Fichas Estudiantiles</button>
+      <button class="nav-btn" onclick="cambiarPestana('directorio')">Directorio por Grados</button>
+      <button class="nav-btn" onclick="cambiarPestana('integrantes')">Equipo</button>
+      <button class="nav-btn" onclick="cambiarPestana('sistema')">Sistema</button>
     </nav>
   </header>
 
   <main>
-    <!-- Presentación Principal -->
-    <section class="hero">
-      <h2>Gestión de Salud Escolar Inteligente</h2>
-      <p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil[cite: 1].</p>
+    <!-- VISTA 1: INICIO -->
+    <section id="vista-inicio" class="vista-seccion activo">
+      <div class="hero">
+        <h2>Gestión de Salud Escolar Inteligente</h2>
+        <p>Base de datos digital para la organización y control sanitario de la comunidad estudiantil[cite: 1]. Utiliza el menú superior para navegar entre los diferentes módulos del sistema.</p>
+      </div>
     </section>
 
-    <!-- MÓDULO: Fichas Estudiantiles (Búsqueda y Formulario) -->
-    <section id="fichas" class="seccion-fichas">
-      <h3>📋 Módulo de Fichas Estudiantiles</h3>
-      
-      <!-- Opción A: Buscar Estudiante -->
-      <div class="contenedor-caja">
-        <h4>🔍 Consultar Ficha Médica Rápidamente</h4>
-        <div class="busqueda-rapida">
-          <input type="text" id="inputBusqueda" placeholder="Buscar por nombre, apellido o documento...">
-          <button type="button" id="btnBuscar">Buscar</button>
+    <!-- VISTA 2: FICHAS ESTUDIANTILES (Registro y Búsqueda) -->
+    <section id="vista-fichas" class="vista-seccion">
+      <div class="seccion-fichas">
+        <h3>📋 Módulo de Fichas Estudiantiles</h3>
+        
+        <!-- Búsqueda Rápida -->
+        <div class="contenedor-caja">
+          <h4>🔍 Consultar Ficha Médica Rápidamente</h4>
+          <div class="busqueda-rapida">
+            <input type="text" id="inputBusqueda" placeholder="Buscar por nombre, apellido o documento...">
+            <button type="button" id="btnBuscar">Buscar</button>
+          </div>
+          <div id="mensajeResultado" class="mensaje-busqueda"></div>
         </div>
-        <div id="mensajeResultado" class="mensaje-busqueda"></div>
-      </div>
 
-      <!-- Opción B: Formulario Nuevo / Editar Estudiante -->
-      <div class="contenedor-caja" style="margin-top: 20px;">
-        <h4 id="tituloFormulario">➕ Registrar Nuevo Estudiante</h4>
-        <form id="formEstudiante" class="form-grid">
-          <!-- Campo oculto para saber si se está editando -->
-          <input type="hidden" id="regId">
+        <!-- Formulario para Registrar / Editar -->
+        <div class="contenedor-caja" style="margin-top: 20px;">
+          <h4 id="tituloFormulario">➕ Registrar Nuevo Estudiante</h4>
+          <form id="formEstudiante" class="form-grid">
+            <input type="hidden" id="regId">
 
-          <div>
-            <label><strong>Nombre completo:</strong></label>
-            <input type="text" id="regNombre" placeholder="Ej: Juan Pérez" required>
-          </div>
-          <div>
-            <label><strong>Documento de identidad:</strong></label>
-            <input type="text" id="regDocumento" placeholder="Ej: 1001234567" required>
-          </div>
-          <div>
-            <label><strong>Grado escolar:</strong></label>
-            <input type="text" id="regGrado" placeholder="Ej: 10°A" required>
-          </div>
-          <div>
-            <label><strong>Tipo de sangre:</strong></label>
-            <input type="text" id="regSangre" placeholder="Ej: O+" required>
-          </div>
-          <div>
-            <label><strong>Alergias / Condiciones:</strong></label>
-            <input type="text" id="regAlergias" placeholder="Ej: Penicilina o Ninguna" required>
-          </div>
-          <div>
-            <label><strong>Nombre y Teléfono del Tutor:</strong></label>
-            <input type="text" id="regTutor" placeholder="Ej: Carlos Pérez (3001234567)" required>
-          </div>
+            <div>
+              <label><strong>Nombre completo:</strong></label>
+              <input type="text" id="regNombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+            <div>
+              <label><strong>Documento de identidad:</strong></label>
+              <input type="text" id="regDocumento" placeholder="Ej: 1001234567" required>
+            </div>
+            <div>
+              <label><strong>Grado escolar:</strong></label>
+              <input type="text" id="regGrado" placeholder="Ej: 10°A" required>
+            </div>
+            <div>
+              <label><strong>Tipo de sangre:</strong></label>
+              <input type="text" id="regSangre" placeholder="Ej: O+" required>
+            </div>
+            <div>
+              <label><strong>Alergias / Condiciones:</strong></label>
+              <input type="text" id="regAlergias" placeholder="Ej: Penicilina o Ninguna" required>
+            </div>
+            <div>
+              <label><strong>Nombre y Teléfono del Tutor:</strong></label>
+              <input type="text" id="regTutor" placeholder="Ej: Carlos Pérez (3001234567)" required>
+            </div>
 
-          <div style="grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 10px;">
-            <button type="submit" id="btnGuardar" style="flex: 1;">Guardar Ficha en Sistema</button>
-            <button type="button" id="btnCancelarEdicion" style="background-color: #6c757d; display: none;">Cancelar Edición</button>
-          </div>
-        </form>
-        <p id="mensajeGuardado" style="font-weight: 600; margin-top: 10px;"></p>
+            <div style="grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 10px;">
+              <button type="submit" id="btnGuardar" style="flex: 1;">Guardar Ficha en Sistema</button>
+              <button type="button" id="btnCancelarEdicion" style="background-color: #6c757d; display: none;">Cancelar Edición</button>
+            </div>
+          </form>
+          <p id="mensajeGuardado" style="font-weight: 600; margin-top: 10px;"></p>
+        </div>
       </div>
     </section>
 
-    <!-- MÓDULO: Directorio Completo por Grados -->
-    <section id="directorio" class="seccion-fichas" style="border-color: #03658C;">
-      <h3>📚 Directorio de Estudiantes Guardados (Clasificado por Grados)</h3>
-      <p>Aquí puedes consultar todos los registros en el sistema, modificarlos o eliminarlos según sea necesario.</p>
-      
-      <div id="contenedorGrados" class="contenedor-grados">
-        <!-- Se llena dinámicamente con JS -->
+    <!-- VISTA 3: DIRECTORIO CLASIFICADO POR GRADOS EN CASILLAS -->
+    <section id="vista-directorio" class="vista-seccion">
+      <div class="seccion-fichas" style="border-color: #03658C;">
+        <h3>📚 Directorio de Estudiantes Guardados (Clasificado por Grados)</h3>
+        <p>A continuación se muestran todas las fichas activas distribuidas en casillas individuales organizadas por grado escolar.</p>
+        
+        <div id="contenedorGrados" class="contenedor-grados">
+          <!-- Las casillas/fichas se construyen dinámicamente con JS -->
+        </div>
       </div>
     </section>
 
-    <!-- Integrantes -->
-    <section id="integrantes" class="tarjeta-equipo">
-      <h3>Integrantes del Proyecto:</h3>
-      <ul>
-        <li><strong>Yaricel Paola Bayter Samera</strong> (@ybayter) — QA / Tester</li>
-        <li><strong>Mathias Jose Hernandez Bermudez</strong> (@mhernadez-rgb) — Desarrollador / Analista Lead</li>
-        <li><strong>Gabriela De los Ángeles Martinez Navarro</strong> (@gmartinez-sys) — Líder del Proyecto</li>
-        <li><strong>Andrea Carolina Pallares Medina</strong> (@apallares-mdna) — Diseñadora UX/UI</li>
-        <li><strong>Sajoha Paola Vasquez Rodriguez</strong> (@svasquez-rdg) — Documentadora / Comunicaciones</li>
-      </ul>
-    </section>
-
-    <!-- Resumen y Objetivos -->
-    <section id="sistema" class="contenido-grid">
-      <div class="tarjeta-info">
-        <h3>Presentación del Proyecto</h3>
-        <p>
-          En el área de enfermería del Colegio San Alberto Magno, la gestión suele llevarse a cabo de forma manual[cite: 1]. 
-          SAMGY nace para centralizar, estructurar y optimizar la información médica y académica[cite: 1].
-        </p>
-      </div>
-
-      <div class="tarjeta-info">
-        <h3>Objetivos de SAMGY</h3>
+    <!-- VISTA 4: INTEGRANTES -->
+    <section id="vista-integrantes" class="vista-seccion">
+      <div class="tarjeta-equipo">
+        <h3>Integrantes del Proyecto:</h3>
         <ul>
-          <li>Crear una base de datos digital estudiantil[cite: 1].</li>
-          <li>Facilitar consultas rápidas de enfermería[cite: 1].</li>
-          <li>Reducir el uso de registros en papel[cite: 1].</li>
-          <li>Generar reportes y actualizar fichas periódicamente[cite: 1].</li>
+          <li><strong>Yaricel Paola Bayter Samera</strong> (@ybayter) — QA / Tester</li>
+          <li><strong>Mathias Jose Hernandez Bermudez</strong> (@mhernadez-rgb) — Desarrollador / Analista Lead</li>
+          <li><strong>Gabriela De los Ángeles Martinez Navarro</strong> (@gmartinez-sys) — Líder del Proyecto</li>
+          <li><strong>Andrea Carolina Pallares Medina</strong> (@apallares-mdna) — Diseñadora UX/UI</li>
+          <li><strong>Sajoha Paola Vasquez Rodriguez</strong> (@svasquez-rdg) — Documentadora / Comunicaciones</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- VISTA 5: SISTEMA / OBJETIVOS -->
+    <section id="vista-sistema" class="vista-seccion">
+      <div class="contenido-grid">
+        <div class="tarjeta-info">
+          <h3>Presentación del Proyecto</h3>
+          <p>
+            En el área de enfermería del Colegio San Alberto Magno, la gestión suele llevarse a cabo de forma manual[cite: 1]. 
+            SAMGY nace para centralizar, estructurar y optimizar la información médica y académica[cite: 1].
+          </p>
+        </div>
+
+        <div class="tarjeta-info">
+          <h3>Objetivos de SAMGY</h3>
+          <ul>
+            <li>Crear una base de datos digital estudiantil[cite: 1].</li>
+            <li>Facilitar consultas rápidas de enfermería[cite: 1].</li>
+            <li>Reducir el uso de registros en papel[cite: 1].</li>
+            <li>Generar reportes y actualizar fichas periódicamente[cite: 1].</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
