@@ -25,7 +25,7 @@ h1, h2, h3, h4 {
 #header {
   background-color: var(--azul-oscuro);
   color: var(--blanco);
-  padding: 20px;
+  padding: 20px 10px;
   text-align: center;
   border-bottom: 4px solid var(--azul-claro);
   position: sticky;
@@ -42,7 +42,7 @@ h1, h2, h3, h4 {
 }
 
 .img-logo {
-  max-height: 70px;
+  max-height: 65px;
   width: auto;
   object-fit: contain;
   background-color: var(--blanco);
@@ -56,37 +56,59 @@ h1, h2, h3, h4 {
   opacity: 0.95;
 }
 
+/* Botones de Navegación por Pestañas */
 nav {
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-nav a {
+.nav-btn {
+  background: transparent;
   color: var(--blanco);
-  text-decoration: none;
-  margin: 0 10px;
+  border: 1px solid transparent;
+  padding: 8px 16px;
   font-size: 0.9rem;
-  padding-bottom: 3px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
-nav a.activo, nav a:hover {
-  font-weight: bold;
-  border-bottom: 2px solid var(--azul-claro);
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Main Container */
+.nav-btn.activo {
+  background-color: var(--azul-claro);
+  color: var(--blanco);
+  border-color: var(--blanco);
+}
+
+/* Control de Vistas / Pestañas */
 main {
-  max-width: 950px;
+  max-width: 980px;
   margin: 25px auto;
   padding: 0 20px;
+}
+
+.vista-seccion {
+  display: none; /* Por defecto ocultas */
+}
+
+.vista-seccion.activo {
+  display: block; /* Solo se muestra la pestaña activa */
 }
 
 .hero {
   text-align: center;
   background-color: var(--gris-suave);
-  padding: 20px;
+  padding: 30px 20px;
   border-radius: 8px;
   border: 1px solid var(--azul-claro);
-  margin-bottom: 25px;
 }
 
 .hero h2 {
@@ -100,7 +122,6 @@ main {
   border: 2px solid var(--azul-claro);
   border-radius: 8px;
   padding: 20px;
-  margin-bottom: 25px;
 }
 
 .seccion-fichas h3 {
@@ -122,7 +143,7 @@ main {
   color: var(--azul-oscuro);
 }
 
-/* Buscador y Formulario */
+/* Formulario */
 .busqueda-rapida {
   display: flex;
   gap: 10px;
@@ -151,16 +172,11 @@ main {
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
-}
-
-.busqueda-rapida button:hover, .form-grid button:hover {
-  background-color: #024965;
 }
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 12px;
 }
 
@@ -171,60 +187,79 @@ main {
   margin-bottom: 4px;
 }
 
-/* Directorio de Grados y Estudiantes */
+/* DIRECTORIO: Diseño en Casillas/Fichas Rectangulares */
 .bloque-grado {
   background: var(--blanco);
   border: 1px solid var(--azul-claro);
   border-radius: 8px;
-  padding: 15px;
-  margin-top: 15px;
+  padding: 18px;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .bloque-grado h4 {
-  margin: 0 0 12px 0;
+  margin: 0 0 15px 0;
   color: var(--azul-oscuro);
   border-bottom: 2px solid var(--gris-suave);
-  padding-bottom: 5px;
+  padding-bottom: 6px;
+  font-size: 1.1rem;
 }
 
+/* Grilla para las casillas rectangulares */
 .grid-estudiantes {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
 
-.tarjeta-estudiante {
-  background-color: #fafafa;
-  border: 1px solid #e0e0e0;
-  border-left: 4px solid var(--azul-claro);
+/* Casilla/Ficha individual */
+.casilla-ficha {
+  background-color: #fdfdfd;
+  border: 1.5px solid var(--azul-claro);
+  border-left: 6px solid var(--azul-oscuro);
   border-radius: 6px;
-  padding: 12px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
 
-.tarjeta-estudiante p {
-  margin: 3px 0;
+.casilla-ficha-header {
+  border-bottom: 1px solid var(--gris-suave);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.casilla-ficha-header p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--azul-oscuro);
+}
+
+.casilla-body p {
+  margin: 4px 0;
   font-size: 0.88rem;
+  color: var(--texto-oscuro);
 }
 
-.acciones-tarjeta {
-  margin-top: 10px;
+.acciones-casilla {
+  margin-top: 12px;
   display: flex;
   gap: 8px;
   border-top: 1px solid #eee;
-  padding-top: 8px;
+  padding-top: 10px;
 }
 
 .btn-editar, .btn-eliminar {
   border: none;
-  padding: 6px 12px;
+  padding: 7px 12px;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   flex: 1;
+  text-align: center;
 }
 
 .btn-editar {
@@ -237,13 +272,12 @@ main {
   color: var(--blanco);
 }
 
-/* Tarjetas Informativas */
+/* Secciones Informativas */
 .tarjeta-equipo {
   background-color: var(--gris-suave);
   border-left: 5px solid var(--azul-oscuro);
-  padding: 15px 20px;
+  padding: 20px;
   border-radius: 6px;
-  margin-bottom: 25px;
 }
 
 .tarjeta-equipo h3 {
@@ -261,7 +295,6 @@ main {
 .contenido-grid {
   display: flex;
   gap: 20px;
-  margin-bottom: 25px;
   flex-wrap: wrap;
 }
 
@@ -284,10 +317,6 @@ footer {
   text-align: center;
   padding: 20px;
   font-size: 13px;
-  color: #666;
-  border-top: 1px solid var(--gris-suave);
-  margin-top: 40px;
-}
   color: #666;
   border-top: 1px solid var(--gris-suave);
   margin-top: 40px;
