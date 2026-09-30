@@ -1,8 +1,9 @@
 
+/* Paleta Oficial SAMGY */
 :root {
-  --azul-oscuro: #03658C; /* Institucional */
-  --azul-claro: #4FB3D9;  /* Clínico */
-  --gris-suave: #D9E2E8;  /* Fondo / Contenedor */
+  --azul-oscuro: #03658C;
+  --azul-claro: #4FB3D9;
+  --gris-suave: #D9E2E8;
   --blanco: #FFFFFF;
   --texto-oscuro: #333333;
 }
@@ -15,7 +16,7 @@ body {
   padding: 0;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -37,10 +38,10 @@ h1, h2, h3 {
 }
 
 .img-logo {
-  max-height: 80px; 
+  max-height: 80px;
   width: auto;
   object-fit: contain;
-  background-color: var(--blanco); 
+  background-color: var(--blanco);
   padding: 8px 20px;
   border-radius: 8px;
 }
@@ -49,7 +50,6 @@ h1, h2, h3 {
   margin: 5px 0 10px 0;
   font-size: 1rem;
   opacity: 0.95;
-  font-weight: 400;
 }
 
 nav {
@@ -59,7 +59,7 @@ nav {
 nav a {
   color: var(--blanco);
   text-decoration: none;
-  margin: 0 12px;
+  margin: 0 10px;
   font-size: 0.95rem;
   padding-bottom: 3px;
 }
@@ -76,11 +76,10 @@ main {
   padding: 0 20px;
 }
 
-/* Hero & Buscador */
 .hero {
   text-align: center;
   background-color: var(--gris-suave);
-  padding: 25px;
+  padding: 20px;
   border-radius: 8px;
   border: 1px solid var(--azul-claro);
   margin-bottom: 25px;
@@ -91,24 +90,55 @@ main {
   margin-top: 0;
 }
 
+/* Módulo Fichas Estudiantiles */
+.seccion-fichas {
+  background-color: #f4f8fa;
+  border: 2px solid var(--azul-claro);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.seccion-fichas h3 {
+  color: var(--azul-oscuro);
+  margin-top: 0;
+  border-bottom: 2px solid var(--azul-claro);
+  padding-bottom: 8px;
+}
+
+.contenedor-caja {
+  background: var(--blanco);
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--gris-suave);
+}
+
+.contenedor-caja h4 {
+  margin-top: 0;
+  color: var(--azul-oscuro);
+}
+
+/* Buscador */
 .busqueda-rapida {
-  margin-top: 15px;
   display: flex;
-  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-.busqueda-rapida input {
-  padding: 10px 15px;
-  width: 280px;
+.busqueda-rapida input, .form-grid input {
+  padding: 10px;
   border: 1px solid var(--azul-claro);
   border-radius: 4px;
   font-size: 14px;
   outline: none;
 }
 
-.busqueda-rapida button {
+.busqueda-rapida input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.busqueda-rapida button, .form-grid button {
   background-color: var(--azul-oscuro);
   color: var(--blanco);
   border: none;
@@ -119,17 +149,23 @@ main {
   transition: background 0.3s;
 }
 
-.busqueda-rapida button:hover {
+.busqueda-rapida button:hover, .form-grid button:hover {
   background-color: #024965;
 }
 
-.mensaje-busqueda {
-  margin-top: 12px;
-  font-weight: 600;
-  color: var(--azul-oscuro);
+/* Formulario Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
 }
 
-/* Tarjetas */
+.form-grid button {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
+/* Tarjetas Informativas */
 .tarjeta-equipo {
   background-color: var(--gris-suave);
   border-left: 5px solid var(--azul-oscuro);
@@ -164,9 +200,8 @@ main {
   padding: 20px;
   border-radius: 8px;
   border-left: 5px solid var(--azul-oscuro);
-  border-top: 1px solid var(--gris-suave);
-  border-right: 1px solid var(--gris-suave);
-  border-bottom: 1px solid var(--gris-suave);
+  border: 1px solid var(--gris-suave);
+  border-left: 5px solid var(--azul-oscuro);
 }
 
 .tarjeta-info h3 {
@@ -186,7 +221,6 @@ main {
   color: var(--azul-oscuro);
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 20px;
