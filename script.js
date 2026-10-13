@@ -1,4 +1,4 @@
-// Base de datos inicial
+
 const iniciales = [
   {
     id: "1001234567",
@@ -20,10 +20,10 @@ const iniciales = [
   }
 ];
 
-// Obtener registros guardados
+
 let baseDatosEstudiantes = JSON.parse(localStorage.getItem("samgy_estudiantes")) || iniciales;
 
-// Cambiar de Pestaña/Vista
+
 window.cambiarPestana = (nombrePestana) => {
   const secciones = document.querySelectorAll('.vista-seccion');
   secciones.forEach(sec => sec.classList.remove('activo'));
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (termino === "") {
       mensajeResultado.style.color = "#d9534f";
-      mensajeResultado.innerHTML = "⚠️ Ingresa un nombre o documento para buscar.";
+      mensajeResultado.innerHTML = " Ingresa un nombre o documento para buscar.";
       return;
     }
 
