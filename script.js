@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import './App.css';
+import './style.css';
 
 export default function App() {
   const [vistaActual, setVistaActual] = useState('inicio');
